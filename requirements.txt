@@ -1,0 +1,3 @@
+wechaty
+SQLAlchemy
+Flask-SQLAlchemy
