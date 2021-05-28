@@ -4,7 +4,7 @@ import sys, os
 ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, ROOT_DIR)
 
-import asyncio, dotenv, os
+import asyncio
 
 from wechaty import (
     Wechaty
@@ -19,9 +19,6 @@ class Bot(Wechaty):
 
 
 async def main():
-    dotenv.load_dotenv()
-    import os
-    os.environ['WECHATY_PUPPET_SERVICE_TOKEN'] = ''
     bot = Bot()
 
     room_message_plugin_options = RoomMessagePluginOptions()

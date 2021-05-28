@@ -1,2 +1,0 @@
-2021-05-28 09:04:01,118 - HostiePuppet - INFO - init puppet
-2021-05-28 09:04:01,119 - HostiePuppet - INFO - There is no endpoint in cache, trying to fetch endpoint with token.
