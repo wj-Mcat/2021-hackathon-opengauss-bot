@@ -16,7 +16,7 @@ import wechaty
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bot.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://tsadmin:123456@hackathon2021.localtunnel.chatie.io:5432/pgsqltest'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://tsadmin:123456@hackathon2021.localtunnel.chatie.io:5432/pgsqltest'
 
 db = SQLAlchemy(app)
 
