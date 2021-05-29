@@ -10,9 +10,14 @@ from wechaty import Message
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+import wechaty
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bot.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://tsadmin:123456@hackathon2021.localtunnel.chatie.io:5432/pgsqltest'
+
 db = SQLAlchemy(app)
 
 
@@ -32,6 +37,7 @@ class DBRoom(db.Model):
             room.room_id = wechaty_room.room_id
 
             await wechaty_room.ready()
+            topic = await wechaty_room.topic()
             room.topic = wechaty_room.payload.topic
             room.member_num = len(wechaty_room.payload.member_ids)
 
@@ -100,11 +106,13 @@ class DBMessage(db.Model):
         msg.message_id = message.message_id
         msg.message_type = message.type()
         msg.talker_id = talker.contact_id
+        msg.content = message.text()
 
-        if wechaty_room:
+        if wechaty_room and wechaty_room.room_id:
             await DBRoom.get(wechaty_room)
             msg.room_id = wechaty_room.room_id
-        if wechaty_to:
+
+        if wechaty_to and wechaty_to.contact_id:
             await DBContact.get(wechaty_to)
             msg.to_contact_id = wechaty_to.contact_id
 
@@ -113,7 +121,7 @@ class DBMessage(db.Model):
 
 
 def init_db():
-    db.drop_all(app=app)
+    # db.drop_all(app=app)
     db.create_all(app=app)
 
 

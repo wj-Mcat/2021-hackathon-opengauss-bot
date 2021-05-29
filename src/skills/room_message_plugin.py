@@ -35,8 +35,12 @@ class RoomMessagePlugin(WechatyPlugin):
             return
 
         room = msg.room()
-        if room.room_id not in self.options.room_ids:
+        if not room:
             return
+
+        print(room.room_id)
+        # if room.room_id not in self.options.room_ids:
+        #     return
 
         if MessageType.MESSAGE_TYPE_TEXT == msg.type():
             await DBMessage.add(msg)
